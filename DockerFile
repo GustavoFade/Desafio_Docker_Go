@@ -1,0 +1,13 @@
+FROM golang:alpine AS imageBaseGolang
+
+WORKDIR /go/src/
+
+COPY ./src /go/src/
+
+FROM scratch
+
+WORKDIR /go/src/ -p
+
+COPY --from=imageBaseGolang /go/src/hello /go/src
+
+ENTRYPOINT ["/go/src/hello"]
